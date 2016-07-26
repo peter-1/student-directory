@@ -15,7 +15,8 @@ def input_students
     cohort = "november" if cohort.gsub(/\s/, "").empty?
     #add the student hash to the array
     students << {name: name, cohort: cohort.to_sym}
-    puts "Now we have #{students.count} students."
+    student_w = students.count == 1 ? "student" : "students"
+    puts "Now we have #{students.count} #{student_w}."
   end
   students #return the students array
 end
@@ -41,9 +42,10 @@ def print(students)
 end
 
 def print_footer(students)
+  student_w = students.size == 1 ? "student" : "students"
   #we print out the total number of students by using a var
   puts
-  puts "Overall, we have #{students.size} great students.".center($line_width)
+  puts "Overall, we have #{students.size} great #{student_w}.".center($line_width)
 end
 
 #we call all the defined methods
