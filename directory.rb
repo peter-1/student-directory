@@ -44,22 +44,26 @@ students = [{name: "Dr. Hannibal Lecter", cohort: :november, country_of_birth: "
 
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  $line_width = 100
+  puts "The students of Villains Academy".center($line_width)
+  puts "-------------".center($line_width)
 end
 
 def print(students)
   #print out all the student related data (index /starts at 1/, name, cohort)
   students.each_with_index do |student, i|
-    puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    puts "    Country of birth: #{student[:country_of_birth]}, Height: #{student[:height]}"
-    puts "    Hobbies: #{student[:hobby].join(", ")}"
+    puts "#{i + 1}. #{student[:name]}".ljust($line_width * 0.4) +
+    "Cohort: #{student[:cohort].capitalize}"
+    puts "".ljust($line_width * 0.4) +
+    "Country of birth: #{student[:country_of_birth]}, Height: #{student[:height]}"
+    puts "".ljust($line_width * 0.4) + "Hobbies: #{student[:hobby].join(", ")}"
   end
 end
 
 def print_footer(students)
   #we print out the total number of students by using a var
-  puts "Overall, we have #{students.size} great students."
+  puts
+  puts "Overall, we have #{students.size} great students.".center($line_width)
 end
 
 #we call all the defined methods
