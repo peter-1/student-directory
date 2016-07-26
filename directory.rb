@@ -1,3 +1,4 @@
+=begin
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -16,6 +17,31 @@ def input_students
   #return the students array
   students
 end
+=end
+
+students = [{name: "Dr. Hannibal Lecter", cohort: :november, country_of_birth: "USA",
+  height: "170 cm", hobby: ["singing", "dancing", "driving a car"]},
+  {name: "Darth Vader", cohort: :november, country_of_birth: "China",
+  height: "181 cm", hobby: ["sleeping", "fighting", "travelling"]},
+  {name: "Nurse Ratched", cohort: :november, country_of_birth: "USA",
+  height: "181 cm", hobby: ["travelling", "reading"]},
+  {name: "Michael Corleone", cohort: :november, country_of_birth: "Italy",
+  height: "181 cm", hobby: ["going out with the family", "supporting the society", "eating"]},
+  {name: "Alex DeLarge", cohort: :november, country_of_birth: "Holland",
+  height: "181 cm", hobby: ["reading", "writing", "dancing"]},
+  {name: "The Wicked Witch of the West", cohort: :november, country_of_birth: "UK",
+  height: "181 cm", hobby: ["sleeping"]},
+  {name: "Terminator", cohort: :november, country_of_birth: "Austria",
+  height: "181 cm", hobby: ["driving a car", "going to the gym", "dancing", "shooting"]},
+  {name: "Freddy Krueger", cohort: :november, country_of_birth: "Germany",
+  height: "181 cm", hobby: ["running", "eating", "cooking", "knitting"]},
+  {name: "The Joker", cohort: :december, country_of_birth: "Mexico",
+  height: "181 cm", hobby: ["joking", "playing with batman", "laughing"]},
+  {name: "Joffrey Baratheon", cohort: :december, country_of_birth: "Canada",
+  height: "181 cm", hobby: ["coding", "sleeping"]},
+  {name: "Norman Bates", cohort: :december, country_of_birth: "USA",
+  height: "181 cm", hobby: ["cooking", "dancing", "taking care of the family"]}]
+
 
 def print_header
   puts "The students of Villains Academy"
@@ -23,22 +49,21 @@ def print_header
 end
 
 def print(students)
-  count = 0
   #print out all the student related data (index /starts at 1/, name, cohort)
-  while count < students.length do
-    student = students[count]
-    puts "#{count + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    count += 1
+  students.each_with_index do |student, i|
+    puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    puts "    Country of birth: #{student[:country_of_birth]}, Height: #{student[:height]}"
+    puts "    Hobbies: #{student[:hobby].join(", ")}"
   end
 end
 
-def print_footer(names)
+def print_footer(students)
   #we print out the total number of students by using a var
-  puts "Overall, we have #{names.count} great students."
+  puts "Overall, we have #{students.size} great students."
 end
 
-#we callall defined methods
-students = input_students
+#we call all the defined methods
+#students = input_students
 print_header
 print(students)
 print_footer(students)
