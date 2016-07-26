@@ -27,10 +27,16 @@ def print_header
 end
 
 def print(students)
+  students_in_groups = {} #new hash to store names groupped by cohort
+  students.each do |student|
+    cohort = student[:cohort]; name = student[:name]
+    students_in_groups.include?(cohort) ? students_in_groups[cohort] << name :
+    students_in_groups[cohort] = [name]
+  end
   #print out all the student related data (index /starts at 1/, name, cohort)
-  students.each_with_index do |student, i|
-    puts "#{i + 1}. #{student[:name]}".ljust($line_width * 0.4) +
-    "Cohort: #{student[:cohort].capitalize}"
+  #groupped in cohort
+  students_in_groups.each do |cohort, names|
+    puts "In #{cohort.capitalize} cohort:".ljust($line_width * 0.4) + names.join(", ")
   end
 end
 
