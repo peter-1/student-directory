@@ -18,16 +18,16 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy whose name starts with 'H'"
+  puts "The students of Villains Academy whose name is shorter than 12 characters"
   puts "-------------"
 end
 
 def print(students)
   $count = 0
   #print out all the data (index /starts at 1/, name, cohort) for
-  #those students whose name starts with "H"
+  #those students whose name is shorter than 12 characters
   students.each_with_index do |student, i|
-    if student[:name].lstrip.upcase[0] == "H"
+    if student[:name].length < 12
       puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
       $count += 1
     end
@@ -37,7 +37,7 @@ end
 def print_footer(names)
   #we print out the total number of students by using a var
   puts "Overall, we have #{names.count} great students."
-  puts "We have #{$count} students whose name starts with 'H'."
+  puts "We have #{$count} students whose name is shorter than 12 characters."
 end
 
 #we callall defined methods
