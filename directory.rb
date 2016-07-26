@@ -5,12 +5,14 @@ def input_students
   students = []
   loop do
     puts "Please enter a name:"
-    name = gets.chomp #gets name
+    name = gets #gets name
+    name.chop! if name.end_with?("\r", "\n")
     break if name == "" #break from loop if no data entered
     #if no name is entered, Anonymus is used
     name = "Anonymous" if name.gsub(/\s/, "").empty?
     puts "Please enter a cohort for #{name}:"
-    cohort = gets.chomp.downcase #get cohort
+    cohort = gets.downcase #get cohort
+    cohort.chop! if cohort.end_with?("\r", "\n")
     #if no cohort is entered, november cohort is used
     cohort = "november" if cohort.gsub(/\s/, "").empty?
     #add the student hash to the array
