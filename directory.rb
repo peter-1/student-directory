@@ -11,3 +11,7 @@ puts "Freddy Krueger"
 puts "The Joker"
 puts "Joffrey Baratheon"
 puts "Norman Bates"
+#we print out the total number of students manually
+print "Overall, we have "
+print 11
+puts " great students"
