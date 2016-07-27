@@ -52,6 +52,8 @@ end
 
 #we call all the defined methods
 students = input_students
-print_header
-print(students)
-print_footer(students)
+if students.size > 0
+  print_header
+  print(students)
+  print_footer(students)
+end
