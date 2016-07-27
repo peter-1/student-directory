@@ -85,8 +85,9 @@ end
 
 def try_load_students
   filename = ARGV.first #first argument from the command line
-  return if filename.nil?
-  if File.exists?(filename)
+  #if no file give at startup call load_students with no argument
+  if filename.nil? then load_students
+  elsif File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.size} from #{filename}"
   else
