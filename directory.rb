@@ -3,7 +3,7 @@
 def interactive_menu
   loop do
     print_menu
-    process(STDIN.gets.chomp) #get selection from user and pass it to process method
+    process_menu(STDIN.gets.chomp) #get selection from user and pass it to process method
   end
 end
 
@@ -16,7 +16,7 @@ def print_menu
   puts "9. Exit"
 end
 
-def process(selection)
+def process_menu(selection)
   case selection
   when "1" then input_students
   when "2" then show_students
@@ -35,14 +35,15 @@ end
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = STDIN.gets.chomp #get the first name
-  #while the name is not empty, repeat this code
-  while !name.empty? do
-    #add the student hash to the array
+  ask_for_students
+end
+
+def ask_for_students
+  loop do
+    name = STDIN.gets.chomp #get the name
+    break if name == "" #break from loop if no data is entered
     update_students_list(name, "november")
     puts "Now we have #{@students.count} students"
-    #get another name from the user
-    name = STDIN.gets.chomp
   end
 end
 
