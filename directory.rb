@@ -12,6 +12,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
   puts "9. Exit"
 end
 
@@ -20,6 +21,7 @@ def process(selection)
   when "1" then input_students
   when "2" then show_students
   when "3" then save_students
+  when "4" then load_students
   when "9" then exit #exists the program
   else
     puts "I don't know what you meant, please try again."
@@ -64,6 +66,15 @@ def save_students
   @students.each do |student|
     csv_line = [student[:name], student[:cohort]].join(",")
     file.puts csv_line
+  end
+  file.close
+end
+
+def load_students
+  file = File.open("students.csv", "r")
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(",")
+    @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
