@@ -11,6 +11,7 @@ def print_menu
   #print out the menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
@@ -18,6 +19,7 @@ def process(selection)
   case selection
   when "1" then input_students
   when "2" then show_students
+  when "3" then save_students
   when "9" then exit #exists the program
   else
     puts "I don't know what you meant, please try again."
@@ -55,6 +57,15 @@ end
 
 def print_footer
   puts "Overall, we have #{@students.count} great students"
+end
+
+def save_students
+  file = File.open("students.csv", "w") #open the file for writing
+  @students.each do |student|
+    csv_line = [student[:name], student[:cohort]].join(",")
+    file.puts csv_line
+  end
+  file.close
 end
 
 interactive_menu
