@@ -11,8 +11,8 @@ def print_menu
   #print out the menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to a file"
+  puts "4. Load the list from a file"
   puts "9. Exit"
 end
 
@@ -20,8 +20,8 @@ def process_menu(selection)
   case selection
   when "1" then input_students
   when "2" then show_students
-  when "3" then save_students
-  when "4" then load_students
+  when "3" then ask_for_filename(selection)
+  when "4" then ask_for_filename(selection)
   when "9" then exit #exists the program
   else
     puts "I don't know what you meant, please try again."
@@ -66,6 +66,12 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
+def ask_for_filename(io_type)
+  puts "Please enter a filename:"
+  filename = STDIN.gets.chomp #get filename from user
+  io_type == "4" ? load_students(filename) : save_students(filename)
+end
+
 def save_students(filename = "students.csv")
   file = File.open(filename, "w") #open the file for writing
   @students.each do |student|
@@ -77,7 +83,7 @@ def save_students(filename = "students.csv")
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r"); count = 0
+  file = File.open(filename, "r"); count = 0 #open the file for reading
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     update_students_list(name, cohort)
@@ -85,6 +91,8 @@ def load_students(filename = "students.csv")
   end
   puts "Loaded #{count} students from #{filename} file."
   file.close
+rescue
+  puts "File doesn't exist. Failed to load file."
 end
 
 def try_load_students
