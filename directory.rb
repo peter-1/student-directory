@@ -43,7 +43,7 @@ def ask_for_students
     name = STDIN.gets.chomp #get the name
     break if name == "" #break from loop if no data is entered
     update_students_list(name, "november")
-    puts "Now we have #{@students.count} students"
+    puts "You have registered #{name} successfully. Now we have #{@students.count} students."
   end
 end
 
@@ -66,21 +66,24 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students
-  file = File.open("students.csv", "w") #open the file for writing
+def save_students(filename = "students.csv")
+  file = File.open(filename, "w") #open the file for writing
   @students.each do |student|
     csv_line = [student[:name], student[:cohort]].join(",")
     file.puts csv_line
   end
   file.close
+  puts "Saved #{@students.size} students on #{filename} file."
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+  file = File.open(filename, "r"); count = 0
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     update_students_list(name, cohort)
+    count += 1 #count is used to show the proper number of loaded students
   end
+  puts "Loaded #{count} students from #{filename} file."
   file.close
 end
 
@@ -88,9 +91,7 @@ def try_load_students
   filename = ARGV.first #first argument from the command line
   #if no file give at startup call load_students with no argument
   if filename.nil? then load_students
-  elsif File.exists?(filename)
-    load_students(filename)
-    puts "Loaded #{@students.size} from #{filename}"
+  elsif File.exists?(filename) then load_students(filename)
   else
     puts "Sorry, #{filename} doesn't exist."
     exit #quit the program
