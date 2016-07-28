@@ -73,24 +73,25 @@ def ask_for_filename(io_type)
 end
 
 def save_students(filename = "students.csv")
-  file = File.open(filename, "w") #open the file for writing
-  @students.each do |student|
-    csv_line = [student[:name], student[:cohort]].join(",")
-    file.puts csv_line
+  File.open(filename, "w") do |f| #open the file for writing
+    @students.each do |student|
+      csv_line = [student[:name], student[:cohort]].join(",")
+      f.puts csv_line
+    end
   end
-  file.close
   puts "Saved #{@students.size} students on #{filename} file."
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r"); count = 0 #open the file for reading
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    update_students_list(name, cohort)
-    count += 1 #count is used to show the proper number of loaded students
+  count = 0
+  File.open(filename, "r") do |f| #open the file for reading
+    f.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      update_students_list(name, cohort)
+      count += 1 #count is used to show the proper number of loaded students
+    end
   end
   puts "Loaded #{count} students from #{filename} file."
-  file.close
 rescue
   puts "File doesn't exist. Failed to load file."
 end
