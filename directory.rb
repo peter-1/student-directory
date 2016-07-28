@@ -1,3 +1,4 @@
+require 'csv'
 @students = [] #create an empty array
 
 def interactive_menu
@@ -73,23 +74,17 @@ def ask_for_filename(io_type)
 end
 
 def save_students(filename = "students.csv")
-  File.open(filename, "w") do |f| #open the file for writing
-    @students.each do |student|
-      csv_line = [student[:name], student[:cohort]].join(",")
-      f.puts csv_line
-    end
+  CSV.open(filename, "wb") do |csv|
+    @students.each { |student| csv << [student[:name], student[:cohort]] }
   end
   puts "Saved #{@students.size} students on #{filename} file."
 end
 
 def load_students(filename = "students.csv")
   count = 0
-  File.open(filename, "r") do |f| #open the file for reading
-    f.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      update_students_list(name, cohort)
-      count += 1 #count is used to show the proper number of loaded students
-    end
+  CSV.foreach(filename) do |row|
+    update_students_list(row[0], row[1])
+    count += 1 #count is used to show the proper number of loaded students
   end
   puts "Loaded #{count} students from #{filename} file."
 rescue
