@@ -43,12 +43,12 @@ def ask_for_students
   loop do
     name = STDIN.gets.chomp #get the name
     break if name == "" #break from loop if no data is entered
-    update_students_list(name, "november")
+    update_students_list(name)
     puts "You have registered #{name} successfully. Now we have #{@students.count} students."
   end
 end
 
-def update_students_list(name, cohort)
+def update_students_list(name, cohort = "november")
   @students << {name: name, cohort: cohort.to_sym}
 end
 
@@ -67,10 +67,12 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def ask_for_filename(io_type)
+def ask_for_filename(selection)
   puts "Please enter a filename:"
   filename = STDIN.gets.chomp #get filename from user
-  io_type == "4" ? load_students(filename) : save_students(filename)
+  #if selection was "4" than load_students is called, otherwise save_students
+  #method is called with the filename as argument
+  selection == "4" ? load_students(filename) : save_students(filename)
 end
 
 def save_students(filename = "students.csv")
@@ -78,6 +80,8 @@ def save_students(filename = "students.csv")
     @students.each { |student| csv << [student[:name], student[:cohort]] }
   end
   puts "Saved #{@students.size} students on #{filename} file."
+rescue
+  puts "File cannot be created without name. Failed to save the students list."
 end
 
 def load_students(filename = "students.csv")
