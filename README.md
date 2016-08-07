@@ -4,6 +4,6 @@ The student directory script allows you to manage the list of students enrolled 
 
 ## How to use ##
 
-```shell
-ruby directory.rb
-```
+Run `ruby directory.rb`
+
+For all the required modifications check the available commits [here](https://github.com/peter-miklos/student-directory/commits/master).
